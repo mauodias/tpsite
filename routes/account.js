@@ -13,7 +13,7 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', function(req, res, next) {
-    User.register(new User({ username : req.body.username, realname: req.body.realname }), req.body.password, function(err, user) {
+    User.register(new User({ username : req.body.username, realname: req.body.realname, admin: true }), req.body.password, function(err, user) {
         if (err) {
           return res.render('register', { error : err.message });
         }
