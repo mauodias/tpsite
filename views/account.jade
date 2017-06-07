@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 TPS List
+  if (!user)
+    a(href="/account/login") Login
+    |&nbsp; | &nbsp;
+    a(href="/account/register") Register
+  if (user)
+    p You are currently logged in as #{user.realname}
+    a(href="/account/logout") Logout

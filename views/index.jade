@@ -1,0 +1,74 @@
+extends layout
+
+block content
+  h1 Hi, #{user.realname}! #[a(href='/account/logout') Logout]
+  br
+  if !order
+    h2 No list open for today =(
+    br
+    form(role='form', action="/newlist",method="post", style='max-width: 300px;')
+      button.btn.btn-default(type='submit') New list!
+  -if (order) {
+    -var userOnList = false
+    table.table.table-striped
+      thead
+        tr
+          th.col-md-2 Name
+          th.col-md-2 Split drink?
+          th.col-md-2 Meat option
+          th.col-md-2 Leave list
+          -if (user.admin) {
+            th.col-md-2 Admin
+          -}
+      tbody
+        each item in order.items
+          -if (item.user.username == user.username) {
+            -userOnList=true;
+          -}
+          tr(class=item.user.username == user.username ? "success" : "")
+            td #{item.user.realname}
+            if item.drink
+              td Yes
+            else
+              td No
+            if item.veggie
+              if item.eggs
+                td Extra egg
+              else
+                td None
+            else
+              if item.beef
+                td Beef
+              else
+                td Chicken
+            td
+              -if (user.username == item.user.username) {
+                a(href='/leavelist') I am not hungry today.
+              -}
+            -if(user.admin){
+              td
+                a(href='/removeuser?username=' + item.user.username) Remove user.
+            -}
+    -if(!userOnList) {
+      form(role='form', action="/joinlist",method="post", style='max-width: 500px;')
+        .form-group
+          input(type="radio", name="meat", value="beef" checked=true)
+          | &nbsp;Beef
+          &nbsp;
+          input(type="radio", name="meat", value="chicken")
+          | &nbsp;Chicken
+          &nbsp;
+          input(type="checkbox", name="veggie")
+          | &nbsp;No meat
+          &nbsp;
+          input(type="checkbox", name="eggs")
+          | &nbsp;Extra egg
+          &nbsp;
+          input(type="checkbox", name="drink")
+          | &nbsp;Split drink
+        .form-group
+          button.btn.btn-default(type='submit') Join the list!
+    -}
+  -}
+  
+    
