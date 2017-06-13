@@ -69,6 +69,28 @@ block content
         .form-group
           button.btn.btn-default(type='submit') Join the list!
     -}
+    div
+      h3 Suggested Order:
+      ul
+        -if(suggested.alabeef){
+          li Ala Minuta Beef: #{suggested.alabeef}
+        -}
+        -if(suggested.alachicken){
+          li Ala Minuta Chicken: #{suggested.alachicken}
+        -}
+        -if(suggested.extrabeef){
+          li Extra Beef: #{suggested.extrabeef}
+        -}
+        -if(suggested.extrachicken){
+          li Extra Chicken: #{suggested.extrachicken}
+        -}
+        -if(suggested.eggs){
+          li Extra Eggs: #{suggested.eggs}
+        -}
+        li Beans: #{suggested.beans}
+        -if(suggested.drinks){
+          li Drink (Coke, usually): #{suggested.drinks}
+        -}
   -}
   
     
